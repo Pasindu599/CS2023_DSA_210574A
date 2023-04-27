@@ -19,8 +19,9 @@ void traverseInOrder(struct node *root) {
 
 // Insert a node
 struct node *insertNode(struct node *node, int key) {
-    
-    if (node == NULL){
+     
+    if (node == NULL){ // check whether the root is empty 
+        // create a new node
         struct node *newNode = (struct node *)malloc(sizeof(struct node));
         newNode->key = key;
         newNode->left = NULL;
@@ -29,13 +30,18 @@ struct node *insertNode(struct node *node, int key) {
     }
 
     if (key < node->key)
+        // traverse to the left side of the tree
         node->left = insertNode(node->left, key);
     else if(key > node->key)
+        // traverse to the right side of the tree
         node->right = insertNode(node->right, key);
 
     return node;
 
 }
+/*
+    find the node with minimium value
+*/
 struct node* findMinValueNode(struct node* node)
 {
     struct node* currentNode = node;
@@ -75,9 +81,9 @@ struct node *deleteNode(struct node *root, int key) {
             }
         
         // with both children
-        struct node* tempNode = findMinValueNode(root->right);
-        root->key = tempNode->key;
-        root->right = deleteNode(root->right, tempNode->key);
+        struct node* tempNode = findMinValueNode(root->right); // check the node with minimum value
+        root->key = tempNode->key; 
+        root->right = deleteNode(root->right, tempNode->key); // delete the duplicate value of minimum value
         }
     return root;
  
